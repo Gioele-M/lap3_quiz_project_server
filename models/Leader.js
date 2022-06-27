@@ -23,21 +23,22 @@ module.exports = class Leader {
             }
         })
 
-        static findByUsername(data) {
-            return new Promise(async (res, rej) => {
-                try {
-                    const { username } = data;
-                    let result = await db.query(`SELECT * FROM leaders WHERE username = $1 ORDER BY username DESC;`, [
-                        username,
-                    ]);
-                    let leaders = result.rows;
-                    res(leaders);
-                  } catch (err) {
-                    rej("Could not receive this user's scores");
-                  }
-                });
-          }
+    }
+   
+    static findByUsername(data) {
+        return new Promise(async (res, rej) => {
+            try {
+                const { username } = data;
+                let result = await db.query(`SELECT * FROM leaders WHERE username = $1 ORDER BY username DESC;`, [
+                    username,
+                ]);
+                let leaders = result.rows;
+                res(leaders);
+                } catch (err) {
+                rej("Could not receive this user's scores");
+                }
+            });
+        }
 
         
     }
-
