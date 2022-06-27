@@ -1,1 +1,1 @@
-web: npm install && npm run seedDev && npm run dev
+web: npm install && npm run seedDev && npm run start
