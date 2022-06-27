@@ -30,7 +30,7 @@ module.exports = class User {
         return new Promise(async (resolve, reject) => {
             try {
                 console.log(username)
-                const result = await db.query('INSERT INTO users (username, email, password_digest) VALUES ($1, $2, $3) RETURNING *;', [ username, email, password ]);
+                const result = await db.query('INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *;', [ username, email, password ]);
                 const user = new User(result.rows[0]);
                 resolve(user)
             } catch (err) {
