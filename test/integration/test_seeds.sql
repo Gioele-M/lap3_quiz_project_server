@@ -1,12 +1,12 @@
 -- TRUNCATE authors, books RESTART IDENTITY;
 
-TRUNCATE users RESTART IDENTITY;
+-- TRUNCATE users RESTART IDENTITY;
 
 
-INSERT INTO users (name) 
-VALUES
-('Test Author 1'),
-('Test Author 2');
+-- INSERT INTO users (name) 
+-- VALUES
+-- ('Test Author 1'),
+-- ('Test Author 2');
 
 -- INSERT INTO books (title, year_of_publication, abstract, author_id) 
 -- VALUES
