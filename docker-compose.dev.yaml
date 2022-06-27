@@ -4,9 +4,9 @@ services:
     ports: 
       - 3000:3000
     environment: 
-      - PGUSER=user
+      - PGUSER=postgres
       - PGHOST=db
-      - PGPASSWORD=password
+      - PGPASSWORD=postgres
       - PGDATABASE=library
       - PGPORT=5432
       - NODE_ENV=development
@@ -20,8 +20,8 @@ services:
       - "dbdata:/var/lib/postgresql/data"
     environment: 
       - POSTGRES_DB=library
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
 volumes:
   dbdata:
 networks: 
