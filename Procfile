@@ -1,1 +1,1 @@
-web: bash _scripts/startDev.sh
+web: npm run heroku
