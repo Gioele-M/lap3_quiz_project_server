@@ -1,27 +1,27 @@
-// const Author = require('../../../models/Author');
-// const pg = require('pg');
-// jest.mock('pg');
+const Author = require("../../../models/User");
+const pg = require("pg");
+jest.mock("pg");
 
-// const db = require('../../../dbConfig/init');
+const db = require("../../../dbConfig/init");
 
-// describe('Author', () => {
-//     beforeEach(() => jest.clearAllMocks())
+describe("Author", () => {
+  beforeEach(() => jest.clearAllMocks());
 
-//     afterAll(() => jest.resetAllMocks())
+  afterAll(() => jest.resetAllMocks());
 
-//     describe('all', () => {
-//         test('it resolves with authors on successful db query', async () => {
-//             jest.spyOn(db, 'query')
-//                 .mockResolvedValueOnce({ rows: [{}, {}, {}]});
-//             const all = await Author.all;
-//             expect(all).toHaveLength(3)
-//         })
-//     });
+  describe("all", () => {
+    test("it resolves with authors on successful db query", async () => {
+      jest.spyOn(db, "query").mockResolvedValueOnce({ rows: [{}, {}, {}] });
+      const all = await Author.all;
+      expect(all).toHaveLength(3);
+    });
+  });
+});
 
 //     describe('books', () => {
 //         test('it resolves with formatted books on successful db query', async () => {
 //             jest.spyOn(db, 'query')
-//                 .mockResolvedValueOnce({ 
+//                 .mockResolvedValueOnce({
 //                     rows: [{id: 1, title: 'book1'}, {id: 2, title: 'book2'}]
 //                 });
 //             let testAuthor = new Author({ id: 1, name: 'Test Author'})
@@ -84,5 +84,5 @@
 //             expect(result).toBeInstanceOf(Author);
 //         })
 //     });
-    
+
 // })
