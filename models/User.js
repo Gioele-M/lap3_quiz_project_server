@@ -38,6 +38,22 @@ module.exports = class User {
             }
         })
     }
+    
+    // ADD NEW USER 
+    //
+    // static addUserData(data) {
+    //     return new Promise(async (resolve, reject) => {
+    //         try {
+    //             let user = userScore;
+    //             let newUser = new User(user.rows[0])
+    //             resolve(newUser)
+    //         } catch (err) {
+    //             reject(`Error creating user: ${err}`)
+    //         }
+    //     })
+    // }
+
+
     static findByUsername(username){
         return new Promise (async (resolve, reject) => {
             try {
