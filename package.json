@@ -9,7 +9,7 @@
     "seedDev": "node dbConfig/seedDev.js",
     "test": "jest --setupFiles ./test/integration/config.js --watchAll --detectOpenHandles --runInBand --verbose",
     "unitTests": "jest --testPathPattern=/unit/ --watchAll --verbose",
-    "coverage": "jest --testPathPattern=/unit/ --coverage",
+    "coverage": "jest --coverage",
     "heroku": "docker compose -f docker-compose.yaml -f docker-compose.dev.yaml up"
   },
   "author": "",
