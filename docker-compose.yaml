@@ -1,16 +1,32 @@
 version: '3'
 services:
   api:
+    container_name: heroku_api
     image: node:12.18.4
+    ports:
+      - 3000:3000
     working_dir: /code
     volumes:
       - type: bind
         source: ./
         target: /code
+    environment: 
+      - PGUSER=gio
+      - PGHOST=db
+      - PGPASSWORD=postgres
+      - PGDATABASE=library
+      - PGPORT=5432
+      - NODE_ENV=development
+    depends_on:
+      - db
+    command: bash -c "npm install && npm run seedDev && npm run start"
 
   db:
+    container_name: heroku_db
     image: postgres:12.4
     environment: 
+      - POSTGRES_DB=library
       - POSTGRES_USER=gio
+      - POSTGRES_PASSWORD=postgres
     volumes:
       - "./db/migrations:/docker-entrypoint-initdb.d/:ro"
