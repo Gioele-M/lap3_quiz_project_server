@@ -4,7 +4,7 @@ services:
     ports: 
       - 3000:3000
     environment: 
-      - PGUSER=postgres
+      - PGUSER=gio
       - PGHOST=db
       - PGPASSWORD=postgres
       - PGDATABASE=library
@@ -20,7 +20,7 @@ services:
       - "dbdata:/var/lib/postgresql/data"
     environment: 
       - POSTGRES_DB=library
-      - POSTGRES_USER=postgres
+      - POSTGRES_USER=gio
       - POSTGRES_PASSWORD=postgres
 volumes:
   dbdata:

@@ -16,9 +16,9 @@ module.exports = class User {
             try{
 
                 const result = await db.query('SELECT * FROM users;')
-                
-                console.log(result)
-                res(result)
+                const users = result.rows.map(a => ({ id: a.id, name: a.name }))
+                console.log(users)
+                res(users)
 
             }catch(err){
                 rej('Error!' + err)

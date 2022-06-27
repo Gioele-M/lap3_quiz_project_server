@@ -8,10 +8,14 @@ server.use(express.json());
 
 
 const userModel = require('./models/User')
-
 let toSend
+try{
+   
 
-userModel.all.then((d) => {toSend = d})
+    userModel.all.then((d) => {toSend = d})
+}catch(err){
+    console.log(err)
+}
 
 console.log(typeof toSend)
 

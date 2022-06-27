@@ -2,7 +2,7 @@ services:
   api:
     container_name: debug_test_api
     environment: 
-      - PGUSER=postgres
+      - PGUSER=gio
       - PGHOST=db
       - PGPASSWORD=postgres
       - PGDATABASE=library_test
