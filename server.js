@@ -12,7 +12,7 @@ let toSend
 try{
    
 
-    userModel.all.then((d) => {toSend = d})
+    userModel.all.then((d) => {toSend = d}).catch(console.log('error from here (serverjs)'))
 }catch(err){
     console.log(err)
 }
