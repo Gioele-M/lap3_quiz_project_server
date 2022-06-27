@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const usersController = require('../controllers/Users')
 
-router.get('/', userController.index)
-router.get('/:id', userController.show)
-router.post('/', userController.create)
+router.get('/', usersController.index)
+router.get('/:id', usersController.show)
+router.post('/', usersController.create)
 // router.get('/username/', verifyToken, usersController.getByUsername)
 // router.get('/', usersController.getById);
 
