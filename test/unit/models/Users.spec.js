@@ -1,10 +1,10 @@
-const Author = require("../../../models/User");
+const User = require("../../../models/User");
 const pg = require("pg");
 jest.mock("pg");
 
 const db = require("../../../dbConfig/init");
 
-describe("Author", () => {
+describe("User", () => {
   beforeEach(() => jest.clearAllMocks());
 
   afterAll(() => jest.resetAllMocks());
@@ -12,8 +12,17 @@ describe("Author", () => {
   describe("all", () => {
     test("it resolves with authors on successful db query", async () => {
       jest.spyOn(db, "query").mockResolvedValueOnce({ rows: [{}, {}, {}] });
-      const all = await Author.all;
+      const all = await User.all;
       expect(all).toHaveLength(3);
+    });
+  });
+
+  describe("constructor", () => {
+    it("works", () => {
+      const obj = new User("username", "email", "password");
+      expect(obj.username).toBe(undefined);
+      expect(obj.email).toBe(undefined);
+      expect(obj.password).toBe(undefined);
     });
   });
 });
