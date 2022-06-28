@@ -3,6 +3,38 @@ const router = express.Router();
 
 const User = require("../models/User");
 
+
+//////////////////////////////////
+
+async function indexUsers(req, res){
+    try{
+        const users = await User.all
+        res.status(200).json(users)
+    }catch(err){
+        res.status(500).send(err)
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+module.exports = { indexUsers }
+///////////////////////////////////
+
+
+
+
+
+
 // Get all users
 router.get("/", async (req, res) => {
   try {
@@ -62,7 +94,8 @@ router.post("/", async (req, res) => {
 //   }
 // });
 
-//Delete User
+//Delete User 
+                                                    // Need the destroy() function
 router.delete("/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -73,7 +106,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-module.exports = router;
+// module.exports = router;
 
 
 
