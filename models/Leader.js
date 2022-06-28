@@ -12,7 +12,7 @@ module.exports = class Leader {
         this.percentage = data.correct / data.total_quest
     }
 
-    static get all(){
+        static get all(){
         return new Promise(async (res, rej) =>{
             try{
 
@@ -28,11 +28,11 @@ module.exports = class Leader {
 
     }
    
-    static findByUsername(data) {
+        static findByUsername(data) {
         return new Promise(async (res, rej) => {
             try {
                 const { username } = data;
-                let result = await db.query(`SELECT * FROM leaders WHERE username = $1 ORDER BY username DESC;`, [
+                let result = await db.query(`SELECT * FROM leaders WHERE username = $1 ;`, [
                     username,
                 ]);
                 let leaders = result.rows;
@@ -55,7 +55,7 @@ module.exports = class Leader {
         //     });
         // }
     
-      static destroy(id){
+        static destroy(id){
             return new Promise(async (res, rej) => {
                 try {
                     await db.query("DELETE FROM users WHERE id = $1;", [id]);
@@ -66,34 +66,37 @@ module.exports = class Leader {
             })
           }
 
-        // LEADERBOARD
-    // static get leaderboard () {
-    //         return new Promise (async (resolve, reject) => {
-    //             try {
-    //                 let usersData = await db.query(`SELECT * FROM users ORDER BY SCORE DESC LIMIT 100;`);
-    //                 const users = usersData.rows.map(u => new User(u))
-    //                 resolve (users);
-    //             } catch (err) {
-    //                 reject('Error retrieving users');
-    //             }
-    //         });
-    //     }
+        static get leaderBoard(){ 
+            return new Promise (async (resolve, reject) => {
+                try {
+                    const result = await db.query(`SELECT username, percentage
+                                                        FROM users
+                                                        ORDER BY percentage DESC
+                                                        LIMIT 8;`)
+                    const users = result.rows.map(user => ({ username: user.username, percentage: user.percentage }))
+                    resolve(users);
+                } catch (err) {
+                    reject("Error retrieving users")
+                }
+            })
+        };
 
-
-    // 
-        // SCORE LIST 
-    // static getScoreList (username) {
-    //     return new Promise (async (resolve, reject) => {
-    //         try {
-    //             let usersData = await db.query(`SELECT * FROM users WHERE username = $1 ORDER BY SCORE DESC;`, [ username ]);
-    //             const user = usersData.rows.map(u => new User(u))
-    //             resolve (user);
-    //         } catch (err) {
-    //             reject('Error retrieving results');
-    //         }
-    //     });
-    // }
-
+        static updateUserScore(username, percentage){
+            return new Promise (async (resolve, reject) => {
+                try {
+                    let updateScore = await db.query(`UPDATE users
+                                        SET percentage = $1
+                                        WHERE username = $2
+                                        AND score < $1
+                                        RETURNING *;`, [ percentage, username ]);
+                    let newScore = new User(updateScore.rows[0]);
+                    resolve (newScore);
+                } catch (err) {
+                    reject('User not found');
+                }
+            });
+        };
+ 
         
     }
 
