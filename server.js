@@ -27,6 +27,11 @@ server.use('/auth', authRoutes)
 //     "password": "pass"
 // }
 
+// LOGIN 
+// {
+//     "username": "Gio",
+//     "password": "pass"
+//   }
 
 
 
