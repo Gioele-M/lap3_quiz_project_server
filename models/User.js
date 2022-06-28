@@ -79,6 +79,16 @@ module.exports = class User {
             }
         })
     }
+    static destroy(id){
+        return new Promise(async (res, rej) => {
+            try {
+                await db.query("DELETE FROM users WHERE id = $1;", [id]);
+                res('User was deleted')
+            } catch (err) {
+                rej(`Error deleting user: ${err}`)
+            }
+        })
+      }
 
     
 }
