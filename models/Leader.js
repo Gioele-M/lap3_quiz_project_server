@@ -3,6 +3,7 @@ const db = require('../dbConfig')
 module.exports = class Leader {
 
     constructor(data){
+        this.id = data.id
         this.username = data.username
         this.correct = data.correct
         this.total_quest = data.total_quest
@@ -39,6 +40,29 @@ module.exports = class Leader {
                 }
             });
         }
+        // UPDATE --> TO BE UPDATED 
+        // static update(id, correct, total_quest, time) {
+        //     return new Promise (async (resolve, reject) => {
+        //         try {
+        //             let updatedUserData = await db.query('UPDATE users SET score = $2 WHERE id = $1 RETURNING *;', [ id, correct, total_quest, time ]);
+        //             let updatedUser = new User(updatedUserData.rows[0]);
+        //             resolve (updatedUser);
+        //         } catch (err) {
+        //             reject('Error updating User');
+        //         }
+        //     });
+        // }
+    
+      static destroy(id){
+            return new Promise(async (res, rej) => {
+                try {
+                    await db.query("DELETE FROM users WHERE id = $1;", [id]);
+                    res('User was deleted')
+                } catch (err) {
+                    rej(`Error deleting user: ${err}`)
+                }
+            })
+          }
 
         // LEADERBOARD
     // static get leaderboard () {
