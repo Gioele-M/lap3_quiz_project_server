@@ -1,7 +1,6 @@
-const db = require('../dbConfig/init')
+const db = require("../dbConfig/init");
 
-
-// authorisation 
+// authorisation
 
 module.exports = class User {
 
@@ -82,12 +81,31 @@ module.exports = class User {
             }
         })
     }
+    
+      static destroy(id) {
+    return new Promise(async (res, rej) => {
+      try {
+        await db.query("DELETE FROM users WHERE id = $1;", [id]);
+        res("User was deleted");
+      } catch (err) {
+        rej(`Error deleting user: ${err}`);
+      }
+    });
+  }
+
+  //   destroy() {
+  //     return new Promise(async (resolve, reject) => {
+  //         try {
+  //             await db.query('DELETE FROM users WHERE id = $1;', [this.id]);
+  //             resolve('User was deleted!');
+  //         } catch (err) {
+  //             reject('User could not be deleted!');
+  //         }
+  //     });
+  // }
 
     
 }
 
 
 // delete fn
-
-
-
