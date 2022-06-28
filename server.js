@@ -14,6 +14,29 @@ const authRoutes = require('./routes/authorisation')
 server.use('/users', userRoutes)
 server.use('/auth', authRoutes)
 
+
+
+
+
+
+
+// REGISTER USER REQUEST BODY: 
+// {
+//     "username": "Gio",
+//     "email": "gio@gio.com",
+//     "password": "pass"
+// }
+
+
+
+
+
+
+
+
+
+
+
 // const userModel = require('./models/User')
 // let toSend
 // try{

@@ -9,7 +9,6 @@ async function registerUser(req, res){
     try{
         const salt = await bcrypt.genSalt()
         const hashed = await bcrypt.hash(req.body.password, salt)
-        console.log(req.body.username, req.body.email, hashed)
         await userModel.create(req.body.username, req.body.email, hashed)
         res.status(201).json({msg: 'User created'})
     }catch(err){
@@ -20,18 +19,24 @@ async function registerUser(req, res){
 async function loginUser(req, res){
     try{
         const user = await User.findByUsername(req.body.username)
+        console.log('returned user ')
+        console.log(user)
+       
         if(!user){
             throw new Error('No user with this username')
         }
-        const authoed = bcrypt.compare(req.body.password, user.password)
+
+        const authed = await bcrypt.compare(req.body.password, user.password)
+        console.log(authed)
+
         if(!authed){
-            res.status(200).json({ user: user.username})
-        }else{
             throw new Error('User could not be authenticated, check your password again')
+        }else{
+            res.status(200).json({ user: user.username})
         }
 
     }catch (err){
-        res.status(401).json({err})
+        res.status(401).json(err)
     }
 }
 
