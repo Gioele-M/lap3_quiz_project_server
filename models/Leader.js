@@ -42,6 +42,22 @@ module.exports = class Leader {
                 }
         });
     }
+
+    static updateUserScore(username, percentage){
+        return new Promise (async (resolve, reject) => {
+            try {
+                let updateScore = await db.query(`UPDATE users
+                                    SET percentage = $1
+                                    WHERE username = $2
+                                    AND percentage < $1
+                                    RETURNING *;`, [ username, percentage ]);
+                let newScore = new User(updateScore.rows[0]);
+                resolve (newScore);
+            } catch (err) {
+                reject('User not found');
+            }
+        });
+    };
         // UPDATE --> TO BE UPDATED 
         // static update(id, correct, total_quest, time) {
         //     return new Promise (async (resolve, reject) => {
@@ -81,21 +97,7 @@ module.exports = class Leader {
             })
         };
 
-        static updateUserScore(username, percentage){
-            return new Promise (async (resolve, reject) => {
-                try {
-                    let updateScore = await db.query(`UPDATE users
-                                        SET percentage = $1
-                                        WHERE username = $2
-                                        AND score < $1
-                                        RETURNING *;`, [ percentage, username ]);
-                    let newScore = new User(updateScore.rows[0]);
-                    resolve (newScore);
-                } catch (err) {
-                    reject('User not found');
-                }
-            });
-        };
+    
  
         
     }
