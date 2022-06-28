@@ -40,5 +40,31 @@ module.exports = class Leader {
             });
         }
 
+        // LEADERBOARD
+    // static get leaderboard () {
+    //         return new Promise (async (resolve, reject) => {
+    //             try {
+    //                 let usersData = await db.query(`SELECT * FROM users ORDER BY SCORE DESC LIMIT 100;`);
+    //                 const users = usersData.rows.map(u => new User(u))
+    //                 resolve (users);
+    //             } catch (err) {
+    //                 reject('Error retrieving users');
+    //             }
+    //         });
+    //     }
+
+        // SCORE LIST 
+    // static getScoreList (username) {
+    //     return new Promise (async (resolve, reject) => {
+    //         try {
+    //             let usersData = await db.query(`SELECT * FROM users WHERE username = $1 ORDER BY SCORE DESC;`, [ username ]);
+    //             const user = usersData.rows.map(u => new User(u))
+    //             resolve (user);
+    //         } catch (err) {
+    //             reject('Error retrieving results');
+    //         }
+    //     });
+    // }
+
         
     }
