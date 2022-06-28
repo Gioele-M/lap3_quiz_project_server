@@ -6,6 +6,7 @@ const db = require('../dbConfig/init')
 module.exports = class User {
 
     constructor(data){
+        this.id = data.id
         this.username = data.username
         this.email = data.email
         this.password = data.password
@@ -78,6 +79,8 @@ module.exports = class User {
             }
         })
     }
+
+    
 }
 
 
