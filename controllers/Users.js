@@ -26,15 +26,6 @@ async function getUser(req, res) {
   }
 }
 
-async function createNewUser(req, res) {
-  try{
-      const username = req.body.username;
-      const user = await User.createUser(username);
-      res.status(201).json(user)
-  } catch (err) {
-      res.status(422).json({err})
-  }
-}
 
 async function updateScore(req, res) {
   try{
