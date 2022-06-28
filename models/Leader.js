@@ -29,15 +29,18 @@ module.exports = class Leader {
 
     }
    
-    static findByUsername(data) {
+    static findByUsername(username) {
     return new Promise(async (res, rej) => {
         try {
-            const { username } = data;
-            let result = await db.query(`SELECT * FROM leader WHERE username = $1 ;`, [
-                username,
-            ]);
-            let leaders = result.rows;
-            res(leaders);
+            let result = await db.query("SELECT * FROM leader WHERE name = $1;", [username]);
+
+            const user = {
+                username: result.rows[0].name,
+                correct: result.rows[0].correct,
+                total: result.rows[0].total_quest
+            }
+
+            res(user);
             } catch (err) {
             rej("Could not receive this user's scores");
             }
@@ -56,14 +59,18 @@ module.exports = class Leader {
         })
     }
 
-    static updateUserScore(username, correct, total, percentage){
+    static updateUserScore(username, correct, total){
         return new Promise (async (resolve, reject) => {
             try {
-                let thisUser = this.findByUsername(username)
+                let thisUser = await this.findByUsername(username)
 
                 const newCorrect = thisUser.correct + correct
-                const newTotal = thisUser.total_quest + total
-                const newPercentage = newCorrect/newTotal
+                const newTotal = thisUser.total + total
+                let newPercentage = newCorrect/newTotal
+
+                if(newPercentage == NaN){
+                    newPercentage = 0
+                }
 
                 let updateScore = await db.query(`UPDATE leader
                                     SET 
@@ -71,9 +78,14 @@ module.exports = class Leader {
                                     total_quest = $2,
                                     percentage = $3
                                     WHERE name = $4
-                                    RETURNING *;`, [ newCorrect, newTotal, newPercentage, username ]);
-                let newScore = new User(updateScore.rows[0]);
-                resolve (newScore);
+                                    RETURNING *;`, [ newCorrect, newTotal, newPercentage, username ])
+
+                
+                                
+                let newScore = updateScore.rows[0]
+                console.log('this is the new score')
+                console.log(updateScore.rows[0])
+                resolve(newScore);
             } catch (err) {
                 reject('User not found');
             }
@@ -95,8 +107,14 @@ module.exports = class Leader {
         static destroy(name){
             return new Promise(async (res, rej) => {
                 try {
-                    await db.query("DELETE FROM leader WHERE name = $1;", [name]);
-                    res('User was deleted')
+                    const response = await db.query("DELETE FROM leader WHERE name = $1;", [name]);
+                    console.log(response)
+
+                    if(response.rowCount == 0){
+                        throw new Error('User does not exist')
+                    }
+
+                    res('User removed')
                 } catch (err) {
                     rej(`Error deleting user: ${err}`)
                 }
@@ -110,7 +128,7 @@ module.exports = class Leader {
                                                         FROM leader
                                                         ORDER BY percentage DESC
                                                         LIMIT 10;`)
-                    const users = result.rows.map(user => ({ username: user.username, percentage: user.percentage }))
+                    const users = result.rows.map(user => ({ username: user.name, percentage: user.percentage }))
                     resolve(users);
                 } catch (err) {
                     reject("Error retrieving users")

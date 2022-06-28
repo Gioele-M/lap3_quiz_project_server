@@ -8,7 +8,7 @@ const Leader = require("../models/Leader");
 async function addUserToBoard(req, res){
   try{
     const response = await Leader.addUserToBoard(req.body.username)
-    res.status(200).json({response})
+    res.status(200).json({msg: "User added"})
   }catch(err){
     res.staus(400).json({err})
   }
@@ -18,8 +18,17 @@ async function addUserToBoard(req, res){
 async function updateScore(req, res) {
   try{
       const username = req.body.username
-      const percentage = req.body.score
-      const user = await Leader.updateUserScore(username, percentage)
+      const correct = req.body.correct
+      const total = req.body.total
+
+      console.log('username')
+      console.log(username)
+
+      const user = await Leader.updateUserScore(username, correct, total)
+
+      console.log('broke before here')
+      console.log(user)
+
       res.status(200).json(user)
   } catch (err) {
       res.status(422).json({err})
