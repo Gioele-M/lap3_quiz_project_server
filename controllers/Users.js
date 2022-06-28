@@ -27,26 +27,7 @@ async function getUser(req, res) {
 }
 
 
-async function updateScore(req, res) {
-  try{
-      const username = req.body.username
-      const percentage = req.body.score
-      const user = await User.updateUserScore(username, percentage)
-      res.status(200).json(user)
-  } catch (err) {
-      res.status(422).json({err})
-  }
-}
-
-async function leaderboard(req, res) {
-  try{
-      const topTen = await User.usersTopTen
-      res.status(200).json(topTen)
-  } catch (err) {
-      res.status(404).json({err})
-  }
-}
 
 
-module.exports = { indexUsers, createNewUser, getUser, updateScore, leaderboard }
+module.exports = { indexUsers, getUser }
 
