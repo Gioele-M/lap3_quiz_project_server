@@ -7,9 +7,9 @@ module.exports = class User {
 
     constructor(data){
         this.id = data.id
-        this.username = data.username
+        this.username = data.name
         this.email = data.email
-        this.password = data.password
+        this.password = data.pass
     }
 
     static get all(){
@@ -27,11 +27,11 @@ module.exports = class User {
         })
     }
 
-    static create({ username, email, password }){
+    static create(username, email, password){
         return new Promise(async (resolve, reject) => {
             try {
                 console.log(username)
-                const result = await db.query('INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *;', [ username, email, password ]);
+                const result = await db.query('INSERT INTO users (name, email, pass) VALUES ($1, $2, $3) RETURNING *;', [ username, email, password ]);
                 const user = new User(result.rows[0]);
                 resolve(user)
             } catch (err) {
@@ -59,7 +59,7 @@ module.exports = class User {
         return new Promise (async (resolve, reject) => {
             try {
                 
-                let userData = await db.query('SELECT * FROM users WHERE username = $1;', [ username ]);
+                let userData = await db.query('SELECT * FROM users WHERE name = $1;', [ username ]);
                 let user = new User(userData.rows[0]);
                 resolve(user);
             } catch (err) {

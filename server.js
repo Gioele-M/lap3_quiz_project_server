@@ -8,16 +8,23 @@ server.use(express.json());
 
 const userRoutes = require('./routes/users')
 
+const authRoutes = require('./routes/authorisation')
+
 
 server.use('/users', userRoutes)
+server.use('/auth', authRoutes)
 
 // const userModel = require('./models/User')
 // let toSend
 // try{
-//     userModel.all.then((d) => {toSend = d}).catch(console.log('error from here (serverjs)'))
+//     userModel.findByUsername('Adam10').then((d) => {
+//         console.log(d)
+//         toSend = d}).catch(console.log('error from here (serverjs)'))
+
 // }catch(err){
 //     console.log(err)
 // }
+
 
 // server.get('/try', (req,res) => res.send(toSend))
 

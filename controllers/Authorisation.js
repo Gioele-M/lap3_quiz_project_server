@@ -9,6 +9,7 @@ async function registerUser(req, res){
     try{
         const salt = await bcrypt.genSalt()
         const hashed = await bcrypt.hash(req.body.password, salt)
+        console.log(req.body.username, req.body.email, hashed)
         await userModel.create(req.body.username, req.body.email, hashed)
         res.status(201).json({msg: 'User created'})
     }catch(err){
@@ -36,4 +37,4 @@ async function loginUser(req, res){
 
 
 
-module.exports = { registerUser, loginUser}
+module.exports = { registerUser, loginUser }
