@@ -32,7 +32,7 @@ module.exports = class Leader {
         return new Promise(async (res, rej) => {
             try {
                 const { username } = data;
-                let result = await db.query(`SELECT * FROM leaders WHERE username = $1 ORDER BY username DESC;`, [
+                let result = await db.query(`SELECT * FROM leaders WHERE username = $1 ;`, [
                     username,
                 ]);
                 let leaders = result.rows;
