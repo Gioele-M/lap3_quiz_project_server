@@ -8,6 +8,8 @@ module.exports = class Leader {
         this.correct = data.correct
         this.total_quest = data.total_quest
         this.time = data.time
+
+        this.percentage = data.correct / data.total_quest
     }
 
     static get all(){
@@ -38,8 +40,8 @@ module.exports = class Leader {
                 } catch (err) {
                 rej("Could not receive this user's scores");
                 }
-            });
-        }
+        });
+    }
         // UPDATE --> TO BE UPDATED 
         // static update(id, correct, total_quest, time) {
         //     return new Promise (async (resolve, reject) => {
@@ -77,6 +79,8 @@ module.exports = class Leader {
     //         });
     //     }
 
+
+    // 
         // SCORE LIST 
     // static getScoreList (username) {
     //     return new Promise (async (resolve, reject) => {
@@ -92,3 +96,13 @@ module.exports = class Leader {
 
         
     }
+
+
+
+    // UPDATE
+    // get new correct and total questions
+    // query: select * From leaderboard where username = $1 -> interact w data
+
+    // Otherwise
+
+    // get user by username -> create user object -> add correct and total q -> delete user from table -> re-insert user with update values
