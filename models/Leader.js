@@ -66,7 +66,7 @@ module.exports = class Leader {
             })
           }
 
-        static get leaderBoard(){ 
+        static get leaderboard(){ 
             return new Promise (async (resolve, reject) => {
                 try {
                     const result = await db.query(`SELECT username, percentage
