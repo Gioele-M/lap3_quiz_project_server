@@ -6,9 +6,9 @@ VALUES
 
 
 
-INSERT INTO leader (name, correct, total_quest, time)
+INSERT INTO leader (name, correct, total_quest, time, percentage)
 VALUES
-('Adam10', 5, 10, '2008-01-01 00:00:01'),
-('Mark1', 7, 10, '2008-01-01 00:00:02'),
-('Apple5', 10, 10, '2008-01-01 00:00:03');
+('Adam10', 5, 10, '2008-01-01 00:00:01', 0.5),
+('Mark1', 7, 10, '2008-01-01 00:00:02', 0.7),
+('Apple5', 10, 10, '2008-01-01 00:00:03', 1);
 

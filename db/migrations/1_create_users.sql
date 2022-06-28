@@ -14,5 +14,6 @@ CREATE TABLE leader (
     name varchar(100) NOT NULL UNIQUE,
     correct int NOT NULL,
     total_quest int NOT NULL,
-    time TIMESTAMP NOT NULL
+    time TIMESTAMP NOT NULL,
+    percentage float NOT NULL
 );
