@@ -95,7 +95,7 @@ module.exports = class Leader {
         static destroy(name){
             return new Promise(async (res, rej) => {
                 try {
-                    await db.query("DELETE FROM users WHERE name = $1;", [name]);
+                    await db.query("DELETE FROM leader WHERE name = $1;", [name]);
                     res('User was deleted')
                 } catch (err) {
                     rej(`Error deleting user: ${err}`)
