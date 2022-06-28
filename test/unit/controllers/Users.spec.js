@@ -1,5 +1,5 @@
 const usersController = require("../../../controllers/users");
-const User = require("../../../models/user");
+const User = require("../../../models/User");
 
 const mockSend = jest.fn();
 const mockJson = jest.fn();
