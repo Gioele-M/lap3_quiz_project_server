@@ -88,7 +88,7 @@ module.exports = class Leader {
                     const result = await db.query(`SELECT username, percentage
                                                         FROM users
                                                         ORDER BY percentage DESC
-                                                        LIMIT 8;`)
+                                                        LIMIT 10;`)
                     const users = result.rows.map(user => ({ username: user.username, percentage: user.percentage }))
                     resolve(users);
                 } catch (err) {
