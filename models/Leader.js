@@ -11,6 +11,7 @@ module.exports = class Leader {
     this.percentage = data.percentage;
   }
 
+<<<<<<< HEAD
   static get all() {
     return new Promise(async (res, rej) => {
       try {
@@ -21,6 +22,42 @@ module.exports = class Leader {
       } catch (err) {
         rej("Error!" + err);
       }
+=======
+        this.percentage = data.percentage
+    }
+
+        static get all(){
+        return new Promise(async (res, rej) =>{
+            try{
+
+                const result = await db.query('SELECT * FROM leaders;')
+                const leaders = result.rows.map(a => ({ id: a.id, name: a.name }))
+                console.log(leaders)
+                res(leaders)
+
+            }catch(err){
+                rej('Error!' + err)
+            }
+        })
+
+    }
+   
+    static findByUsername(username) {
+    return new Promise(async (res, rej) => {
+        try {
+            let result = await db.query("SELECT * FROM leader WHERE name = $1;", [username]);
+
+            const user = {
+                username: result.rows[0].name,
+                correct: result.rows[0].correct,
+                total: result.rows[0].total_quest
+            }
+
+            res(user);
+            } catch (err) {
+            rej("Could not receive this user's scores");
+            }
+>>>>>>> main
     });
   }
 
@@ -40,6 +77,7 @@ module.exports = class Leader {
     });
   }
 
+<<<<<<< HEAD
   static addUserToBoard(username) {
     return new Promise(async (res, rej) => {
       try {
@@ -54,6 +92,20 @@ module.exports = class Leader {
       }
     });
   }
+=======
+    static updateUserScore(username, correct, total){
+        return new Promise (async (resolve, reject) => {
+            try {
+                let thisUser = await this.findByUsername(username)
+
+                const newCorrect = thisUser.correct + correct
+                const newTotal = thisUser.total + total
+                let newPercentage = newCorrect/newTotal
+
+                if(newPercentage == NaN){
+                    newPercentage = 0
+                }
+>>>>>>> main
 
   static updateUserScore(username, correct, total, percentage) {
     return new Promise(async (resolve, reject) => {
@@ -71,10 +123,21 @@ module.exports = class Leader {
                                     total_quest = $2,
                                     percentage = $3
                                     WHERE name = $4
+<<<<<<< HEAD
 
                                     RETURNING *;`, [ newCorrect, newTotal, newPercentage, username ]);
                 let newScore = new User(updateScore.rows[0]);
                 resolve (newScore);
+=======
+                                    RETURNING *;`, [ newCorrect, newTotal, newPercentage, username ])
+
+                
+                                
+                let newScore = updateScore.rows[0]
+                console.log('this is the new score')
+                console.log(updateScore.rows[0])
+                resolve(newScore);
+>>>>>>> main
             } catch (err) {
                 reject('User not found');
             }
@@ -96,8 +159,14 @@ module.exports = class Leader {
         static destroy(name){
             return new Promise(async (res, rej) => {
                 try {
-                    await db.query("DELETE FROM leader WHERE name = $1;", [name]);
-                    res('User was deleted')
+                    const response = await db.query("DELETE FROM leader WHERE name = $1;", [name]);
+                    console.log(response)
+
+                    if(response.rowCount == 0){
+                        throw new Error('User does not exist')
+                    }
+
+                    res('User removed')
                 } catch (err) {
                     rej(`Error deleting user: ${err}`)
                 }
@@ -110,6 +179,7 @@ module.exports = class Leader {
         const result = await db.query(`SELECT name, percentage
                                                         FROM leader
                                                         ORDER BY percentage DESC
+<<<<<<< HEAD
                                                         LIMIT 10;`);
         const users = result.rows.map((user) => ({
           username: user.username,
@@ -122,6 +192,16 @@ module.exports = class Leader {
     });
   }
 };
+=======
+                                                        LIMIT 10;`)
+                    const users = result.rows.map(user => ({ username: user.name, percentage: user.percentage }))
+                    resolve(users);
+                } catch (err) {
+                    reject("Error retrieving users")
+                }
+            })
+        };
+>>>>>>> main
 
 // UPDATE
 // get new correct and total questions
