@@ -80,33 +80,23 @@ module.exports = class Leader {
                 }
             })
         };
-    // static get leaderboard () {
-    //         return new Promise (async (resolve, reject) => {
-    //             try {
-    //                 let usersData = await db.query(`SELECT * FROM users ORDER BY percentage;`);
-    //                 const users = usersData.rows.map(u => new User(u))
-    //                 resolve (users);
-    //             } catch (err) {
-    //                 reject('Error retrieving users');
-    //             }
-    //         });
-    //     }
 
-
-    // 
-        // SCORE LIST 
-    // static getScoreList (username) {
-    //     return new Promise (async (resolve, reject) => {
-    //         try {
-    //             let usersData = await db.query(`SELECT * FROM users WHERE username = $1 ORDER BY SCORE DESC;`, [ username ]);
-    //             const user = usersData.rows.map(u => new User(u))
-    //             resolve (user);
-    //         } catch (err) {
-    //             reject('Error retrieving results');
-    //         }
-    //     });
-    // }
-    
+        static updateUserScore(username, percentage){
+            return new Promise (async (resolve, reject) => {
+                try {
+                    let updateScore = await db.query(`UPDATE users
+                                        SET percentage = $1
+                                        WHERE username = $2
+                                        AND score < $1
+                                        RETURNING *;`, [ percentage, username ]);
+                    let newScore = new User(updateScore.rows[0]);
+                    resolve (newScore);
+                } catch (err) {
+                    reject('User not found');
+                }
+            });
+        };
+ 
         
     }
 
