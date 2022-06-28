@@ -67,17 +67,36 @@ module.exports = class User {
             }
         })
     }
-    
-    static destroy(id) {
-    return new Promise(async (res, rej) => {
-      try {
-        await db.query("DELETE FROM users WHERE id = $1;", [id]);
-        res("User was deleted");
-      } catch (err) {
-        rej(`Error deleting user: ${err}`);
+
+     // DESTROY FOR USERNAME
+     static destroy(username) {
+        return new Promise(async (resolve, reject) => {
+          try {
+            const result = await db.query(
+              'DELETE FROM users WHERE name = $1 RETURNING *;',
+              [username]
+            )
+            resolve('User was deleted')
+          } catch (err) {
+            reject('User could not be deleted')
+            console.log(err)
+          }
+        })
       }
-    });
-  }
+
+      // DESTROY FOR ID
+    
+//     static destroy(id) {
+//     return new Promise(async (res, rej) => {
+//       try {
+//         await db.query("DELETE FROM users WHERE id = $1;", [id]);
+//         res("User was deleted");
+//       } catch (err) {
+//         rej(`Error deleting user: ${err}`);
+//       }
+//     });
+//   }
+
 
   //   destroy() {
   //     return new Promise(async (resolve, reject) => {
