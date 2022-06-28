@@ -12,7 +12,7 @@ module.exports = class Leader {
         this.percentage = data.correct / data.total_quest
     }
 
-    static get all(){
+        static get all(){
         return new Promise(async (res, rej) =>{
             try{
 
@@ -28,7 +28,7 @@ module.exports = class Leader {
 
     }
    
-    static findByUsername(data) {
+        static findByUsername(data) {
         return new Promise(async (res, rej) => {
             try {
                 const { username } = data;
@@ -55,7 +55,7 @@ module.exports = class Leader {
         //     });
         // }
     
-      static destroy(id){
+        static destroy(id){
             return new Promise(async (res, rej) => {
                 try {
                     await db.query("DELETE FROM users WHERE id = $1;", [id]);
@@ -66,11 +66,24 @@ module.exports = class Leader {
             })
           }
 
-        // LEADERBOARD
+        static get leaderBoard(){ 
+            return new Promise (async (resolve, reject) => {
+                try {
+                    const result = await db.query(`SELECT username, percentage
+                                                        FROM users
+                                                        ORDER BY percentage DESC
+                                                        LIMIT 8;`)
+                    const users = result.rows.map(user => ({ username: user.username, percentage: user.percentage }))
+                    resolve(users);
+                } catch (err) {
+                    reject("Error retrieving users")
+                }
+            })
+        };
     // static get leaderboard () {
     //         return new Promise (async (resolve, reject) => {
     //             try {
-    //                 let usersData = await db.query(`SELECT * FROM users ORDER BY SCORE DESC LIMIT 100;`);
+    //                 let usersData = await db.query(`SELECT * FROM users ORDER BY percentage;`);
     //                 const users = usersData.rows.map(u => new User(u))
     //                 resolve (users);
     //             } catch (err) {
@@ -93,7 +106,7 @@ module.exports = class Leader {
     //         }
     //     });
     // }
-
+    
         
     }
 
