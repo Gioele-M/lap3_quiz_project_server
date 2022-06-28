@@ -1,4 +1,5 @@
-const db = require('../dbConfig')
+
+const db = require('../dbConfig/init')
 
 module.exports = class Leader {
 
@@ -91,10 +92,10 @@ module.exports = class Leader {
         //     });
         // }
     
-        static destroy(id){
+        static destroy(name){
             return new Promise(async (res, rej) => {
                 try {
-                    await db.query("DELETE FROM users WHERE id = $1;", [id]);
+                    await db.query("DELETE FROM users WHERE name = $1;", [name]);
                     res('User was deleted')
                 } catch (err) {
                     rej(`Error deleting user: ${err}`)
@@ -105,8 +106,8 @@ module.exports = class Leader {
         static get leaderboard(){ 
             return new Promise (async (resolve, reject) => {
                 try {
-                    const result = await db.query(`SELECT username, percentage
-                                                        FROM users
+                    const result = await db.query(`SELECT name, percentage
+                                                        FROM leader
                                                         ORDER BY percentage DESC
                                                         LIMIT 10;`)
                     const users = result.rows.map(user => ({ username: user.username, percentage: user.percentage }))

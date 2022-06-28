@@ -10,10 +10,11 @@ const userRoutes = require('./routes/users')
 
 const authRoutes = require('./routes/authorisation')
 
+const leaderRoutes = require('./routes/leader')
 
 server.use('/users', userRoutes)
 server.use('/auth', authRoutes)
-
+server.use('/leaderboard', leaderRoutes)
 
 
 

@@ -3,9 +3,10 @@ const router = express.Router();
 
 const leaderController = require('../controllers/Leader')
 
-router.get('/leaderboard', userController.leaderboard)
-router.patch('/', userController.updateScore)
-
+router.get('/leaderboard', leaderController.leaderboard)
+router.patch('/', leaderController.updateScore)
+router.post('/new', leaderController.addUserToBoard)
+router.delete('/remove', leaderController.removeUser)
 
 module.exports = router;
 

@@ -5,6 +5,15 @@ const Leader = require("../models/Leader");
 
 
 
+async function addUserToBoard(req, res){
+  try{
+    const response = await Leader.addUserToBoard(req.body.username)
+    res.status(200).json({response})
+  }catch(err){
+    res.staus(400).json({err})
+  }
+}
+
 
 async function updateScore(req, res) {
   try{
@@ -19,13 +28,22 @@ async function updateScore(req, res) {
 
 async function leaderboard(req, res) {
   try{
-      const topTen = await Leader.usersTopTen
+      const topTen = await Leader.leaderboard
       res.status(200).json(topTen)
   } catch (err) {
       res.status(404).json({err})
   }
 }
 
+async function removeUser(req, res){
+  try{
+      const response = await Leader.destroy(req.body.username)
+      res.status(200).json(response)
+  }catch(err){
+    res.status(404).json({err})
+  }
+}
 
-module.exports = { updateScore, leaderboard }
+
+module.exports = { removeUser, addUserToBoard, updateScore, leaderboard }
 
