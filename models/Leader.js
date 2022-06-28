@@ -71,39 +71,38 @@ module.exports = class Leader {
                                     total_quest = $2,
                                     percentage = $3
                                     WHERE name = $4
-                                    RETURNING *;`,
-          [newCorrect, newTotal, newPercentage, username]
-        );
-        let newScore = new User(updateScore.rows[0]);
-        resolve(newScore);
-      } catch (err) {
-        reject("User not found");
-      }
-    });
-  }
-  // UPDATE --> TO BE UPDATED
-  // static update(id, correct, total_quest, time) {
-  //     return new Promise (async (resolve, reject) => {
-  //         try {
-  //             let updatedUserData = await db.query('UPDATE users SET score = $2 WHERE id = $1 RETURNING *;', [ id, correct, total_quest, time ]);
-  //             let updatedUser = new User(updatedUserData.rows[0]);
-  //             resolve (updatedUser);
-  //         } catch (err) {
-  //             reject('Error updating User');
-  //         }
-  //     });
-  // }
 
-  static destroy(name) {
-    return new Promise(async (res, rej) => {
-      try {
-        await db.query("DELETE FROM users WHERE name = $1;", [name]);
-        res("User was deleted");
-      } catch (err) {
-        rej(`Error deleting user: ${err}`);
-      }
-    });
-  }
+                                    RETURNING *;`, [ newCorrect, newTotal, newPercentage, username ]);
+                let newScore = new User(updateScore.rows[0]);
+                resolve (newScore);
+            } catch (err) {
+                reject('User not found');
+            }
+        });
+    };
+        // UPDATE --> TO BE UPDATED 
+        // static update(id, correct, total_quest, time) {
+        //     return new Promise (async (resolve, reject) => {
+        //         try {
+        //             let updatedUserData = await db.query('UPDATE users SET score = $2 WHERE id = $1 RETURNING *;', [ id, correct, total_quest, time ]);
+        //             let updatedUser = new User(updatedUserData.rows[0]);
+        //             resolve (updatedUser);
+        //         } catch (err) {
+        //             reject('Error updating User');
+        //         }
+        //     });
+        // }
+    
+        static destroy(name){
+            return new Promise(async (res, rej) => {
+                try {
+                    await db.query("DELETE FROM leader WHERE name = $1;", [name]);
+                    res('User was deleted')
+                } catch (err) {
+                    rej(`Error deleting user: ${err}`)
+                }
+            })
+          }
 
   static get leaderboard() {
     return new Promise(async (resolve, reject) => {

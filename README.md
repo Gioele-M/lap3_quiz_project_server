@@ -71,10 +71,7 @@ and our API is hosted [here](https://red-devils-quiz.herokuapp.com/) on Heroku.
 ---
 <!-- GETTING STARTED -->
 # Getting Started
-### Remote Hosting
 
-The site is hosted [here](https://openup-fp.netlify.app/) on Netlify
-and our API is hosted [here](https://fierce-plateau-94232.herokuapp.com/) on Heroku.
 <!-- INSTALLATION/USAGE EXAMPLES/TESTING -->
 # Installation and Usage
 Please follow instructions on installing and setting up this app. 
