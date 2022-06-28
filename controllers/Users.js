@@ -57,7 +57,7 @@ async function leaderboard(req, res) {
 }
 
 
-module.exports = { getAll, createNewUser, getUser, updateScore, leaderboard }
+module.exports = { indexUsers, createNewUser, getUser, updateScore, leaderboard }
 
 
 
