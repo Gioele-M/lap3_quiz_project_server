@@ -104,6 +104,36 @@ io.on('connection', socket => {
 
 
 
+    //probably need another input
+    socket.on('finishGame', (message, cb)=>{
+
+
+        
+        
+        console.log(message)
+        
+        
+        
+        const [id, room] = Array.from(socket.rooms)
+        console.log(id, room)
+        
+        
+        // Store the object of users with their results, once length of object = players in the room send answer back with object
+
+
+        let roomSize = io.sockets.adapter.rooms.get(room).size
+
+        console.log('roomsize '+roomSize)
+        
+
+
+        io.sockets.in(room).emit('playerHasCompleted', 'Another player completed');
+
+
+    })
+
+
+
     socket.on("disconnect", socket => { // runs when client disconnects
         console.log("K bye then");
     });
