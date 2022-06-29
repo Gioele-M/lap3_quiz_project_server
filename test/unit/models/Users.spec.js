@@ -86,6 +86,21 @@ describe("User", () => {
   });
 });
 
+// CREATE 
+//    describe('create', () => {
+//     test('it resolves with user on successful db query', async () => {
+//         let userData = { id: 1, username: 'New User' }
+//         jest.spyOn(db, 'query')
+//             .mockResolvedValueOnce({rows: [ userData] });
+//         const result = await User.create('New User');
+//         expect(result).toBeInstanceOf(User)
+//     })
+// });
+
+
+
+
+
 //     describe('books', () => {
 //         test('it resolves with formatted books on successful db query', async () => {
 //             jest.spyOn(db, 'query')
