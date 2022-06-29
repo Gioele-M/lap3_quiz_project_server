@@ -47,9 +47,6 @@ and our API is hosted [here](https://red-devils-quiz.herokuapp.com/) on Heroku.
 
 ---
 
-## Process
-
-
 <!-- BUILT WITH -->
 # Built With
 
@@ -82,6 +79,16 @@ Please follow instructions on installing and setting up this app.
 Test:
 
 
+## Process
+- Database 
+- Figma
+- Trelllo
+
+## Test coverage 
+
+- client side: 
+- server side:
+
 Screenshots:
 
 
@@ -97,6 +104,7 @@ Screenshots:
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+## Wins and challenges
 
 ---
 <!-- CONTACT/CONTRIBUTORS -->
