@@ -44,7 +44,7 @@ io.on('connection', socket => {
     io.emit('admin-message', `There is ${participantCount} x friend here now!`)
 
 
-    socket.on('message', (message) => {
+    socket.on('message', (message, inputRoom) => {
         console.log('the sent message was:' + message)
 
 
@@ -52,11 +52,56 @@ io.on('connection', socket => {
 
             console.log('scope accessed')
 
-            io.emit('responseCreateRoom', 'The room is being created')
+            let roomCode = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000)
+
+            socket.join(`${roomCode}`)
+
+            io.emit('responseCreateRoom', roomCode)
+
+            io.to(roomCode).emit('responseJoinRoom', `Joined room ${roomCode}`)
+        }
+
+        if(message === 'Join room'){
+
+            socket.join(inputRoom)
+
+            // io.to(socket.id).emit('responseJoinRoom', `Joined room ${inputRoom}`)
+
+            let room = io.sockets.adapter.rooms.get(inputRoom).size
+
+            io.to(inputRoom).emit('responseJoinRoom', `${room}`)
+
         }
 
 
+
+        socket.on('send-message', (message, room) => {
+
+            // if no room passed send to everyone, otherwise just to room
+            if(room === ''){
+                socket.broadcast.emit('receive-message', message)
+            }else{
+                socket.to(room).emit('receive-message', message)
+            }
+        })
+
+
     })
+ 
+    socket.on('startGame', (message, room, cb)=>{
+
+        console.log(message, room, cb)
+
+        cb('The callback was called')
+
+        const stringRoom = `${room}`
+
+        // socket.to(stringRoom).emit('serverAuthToStartGame', message)
+
+        io.sockets.in(stringRoom).emit('serverAuthToStartGame', message);
+
+    })
+
 
 
     socket.on("disconnect", socket => { // runs when client disconnects
