@@ -2,9 +2,9 @@
 const express = require('express');
 const cors = require('cors');
 
-const server = express();
-server.use(cors());
-server.use(express.json());
+const app = express();
+app.use(cors());
+app.use(express.json());
 
 const userRoutes = require('./routes/users')
 
@@ -12,56 +12,58 @@ const authRoutes = require('./routes/authorisation')
 
 const leaderRoutes = require('./routes/leader')
 
-server.use('/users', userRoutes)
-server.use('/auth', authRoutes)
-server.use('/leaderboard', leaderRoutes)
+app.use('/users', userRoutes)
+app.use('/auth', authRoutes)
+app.use('/leaderboard', leaderRoutes)
+
+app.get('/', (req, res) => res.send('Welcome to the library'))
+
+
+// ----
+
+//Socket io setup
+
+const server = require("http").createServer(app);
+const io = require("socket.io")(server, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"]
+    }
+  }) // integrate our http server with a new instance of socket.io
 
 
 
 
+// const socketRoute = io.of('/game')
+
+io.on('connection', socket => {
+    console.log("'Ello, who's this we got here?" + socket.id) // runs when client first connects
 
 
-// REGISTER USER REQUEST BODY: 
-// {
-//     "username": "Gio",
-//     "email": "gio@gio.com",
-//     "password": "pass"
-// }
-
-// LOGIN 
-// {
-//     "username": "Gio",
-//     "password": "pass"
-//   }
+    const participantCount = io.engine.clientsCount
+    io.emit('admin-message', `There is ${participantCount} x friend here now!`)
 
 
+    socket.on('message', (message) => {
+        console.log('the sent message was:' + message)
 
 
+        if(message === 'Create room'){
+
+            console.log('scope accessed')
+
+            io.emit('responseCreateRoom', 'The room is being created')
+        }
 
 
+    })
 
 
+    socket.on("disconnect", socket => { // runs when client disconnects
+        console.log("K bye then");
+    });
+});
 
-
-// const userModel = require('./models/User')
-// let toSend
-// try{
-//     userModel.findByUsername('Adam10').then((d) => {
-//         console.log(d)
-//         toSend = d}).catch(console.log('error from here (serverjs)'))
-
-// }catch(err){
-//     console.log(err)
-// }
-
-
-// server.get('/try', (req,res) => res.send(toSend))
-
-// Add routes here
-
-server.get('/', (req, res) => res.send('Welcome to the library'))
-
-
-
+// ----
 
 module.exports = server
