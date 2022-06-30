@@ -10,7 +10,7 @@ async function addUserToBoard(req, res){
     const response = await Leader.addUserToBoard(req.body.username)
     res.status(200).json({msg: "User added"})
   }catch(err){
-    res.staus(400).json({err})
+    res.status(400).json({err})
   }
 }
 

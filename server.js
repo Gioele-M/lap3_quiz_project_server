@@ -90,7 +90,7 @@ io.on('connection', socket => {
  
     socket.on('startGame', (message, room, cb)=>{
 
-        console.log(message, room, cb)
+        console.log(message.length, room, cb)
 
         cb('The callback was called')
 
@@ -104,7 +104,7 @@ io.on('connection', socket => {
 
 
 
-    //probably need another input
+    //probably need another inputs
     socket.on('finishGame', (playerName, playerScore, questionsAmount, cb)=>{
 
         
