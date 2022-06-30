@@ -1,3 +1,7 @@
+const app = require('../../server');
+const port = process.env.PORT || 3000;
+const resetTestDB = require ("./config")
+
 
 describe("Leader endpoints", () => {
     let api;
@@ -19,7 +23,7 @@ describe("Leader endpoints", () => {
     it("should return a list of all leaders in the database", async () => {
       const res = await request(api).get("/leaderboard");
       expect(res.statusCode).toEqual(200);
-     expect(res.body.games.length).toEqual(3);
+     expect(res.body.length).toEqual(3);
       
     });
 
@@ -35,7 +39,7 @@ describe("Leader endpoints", () => {
 
     it('should post user to the leaderboard', async () => {
     const res = await request(api).delete('/leaderboard/remove').send({ "username": "Gioel"})
-    expect(res.body.msg).toBe("User removed");
+    expect(res.status).toBe(404);
 })
 
 //     it("Deletes user based on user ID", async()=>{  
