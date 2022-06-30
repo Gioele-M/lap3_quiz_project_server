@@ -2,6 +2,7 @@ const request = require('supertest');
 const fs = require("fs");
 const { Pool } = require('pg');
 const app = require('../../server.js');
+const { builtinModules } = require('module');
 
 const testSeed = fs.readFileSync(__dirname + '/test_seeds.sql').toString();
 
@@ -21,4 +22,4 @@ global.request = request;
 global.app = app;
 global.resetTestDB = resetTestDB;
 global.port = process.env.PORT || 3000;
-
+module.exports = resetTestDB

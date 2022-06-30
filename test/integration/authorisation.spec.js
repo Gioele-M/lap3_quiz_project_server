@@ -1,3 +1,7 @@
+const app = require('../../server');
+const resetTestDB = require ("./config")
+
+
 describe('author endpoints', () => {
     let api;
     beforeEach(async () => {

@@ -1,3 +1,7 @@
+const app = require('../../server');
+const port = process.env.PORT || 3000;
+const resetTestDB = require ("./config")
+
 
 describe("Leader endpoints", () => {
     let api;

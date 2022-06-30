@@ -1,3 +1,8 @@
+const app = require('../../server');
+const port = process.env.PORT || 3000;
+const resetTestDB = require ("./config")
+
+
 describe("users endpoints", () => {
     let api;
     beforeEach(async () => {
