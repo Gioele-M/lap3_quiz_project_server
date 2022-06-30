@@ -1,4 +1,5 @@
 const db = require("../dbConfig/init");
+const Leader = require('./Leader')
 
 // authorisation
 
@@ -32,6 +33,10 @@ module.exports = class User {
                 console.log(username)
                 const result = await db.query('INSERT INTO users (name, email, pass) VALUES ($1, $2, $3) RETURNING *;', [ username, email, password ]);
                 const user = new User(result.rows[0]);
+
+                // Add user to board
+                await Leader.addUserToBoard(username)
+
                 resolve(user)
             } catch (err) {
                 reject(`Error creating user: ${err}`)
