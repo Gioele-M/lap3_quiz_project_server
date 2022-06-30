@@ -15,7 +15,7 @@ describe('author endpoints', () => {
 
     it('login returns user id', async () => {
         const res = await request(api).post('/auth/login').send({ "username": "Gio", "password": "pass"})
-        expect(res.body.username).toBe("Adam10");
+        expect(res.body.username).toBe("Gio");
     })
 
     it('register returns User created', async () => {
