@@ -23,6 +23,11 @@ describe('author endpoints', () => {
         expect(res.body.msg).toBe("Incorrect Username or Password");
     })
 
+    it('Unsuccessful register for duplicate username', async () => {
+        const res = await request(api).post('/auth/register').send({"username": "Adam10","email": "adams@gmail.com", "password": "nopass"})
+        expect(res.body.msg).toContain("Username taken");
+    })
+
 //     it('should return a list of books by a specific author', async () => {
 //         const res = await request(api).get('/authors/1');
 //         expect(res.statusCode).toEqual(200);
