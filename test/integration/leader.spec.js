@@ -14,13 +14,33 @@ describe("Leader endpoints", () => {
       console.log("Gracefully stopping test server");
       api.close(done);
     });
-  
+
+    // Leaderboard
     it("should return a list of all leaders in the database", async () => {
       const res = await request(api).get("/leaderboard");
       expect(res.statusCode).toEqual(200);
      expect(res.body.games.length).toEqual(3);
       
     });
+
+    // Post user to leaderboard
+
+    it('should post user to the leaderboard', async () => {
+      const res = await request(api).post('/leaderboard/new').send({ "username": "Gioel"})
+      expect(res.body.msg).toBe("User added");
+  })
   
+
+  // Delete user from leaderboard
+
+    it('should post user to the leaderboard', async () => {
+    const res = await request(api).delete('/leaderboard/remove').send({ "username": "Gioel"})
+    expect(res.body.msg).toBe("User removed");
+})
+
+//     it("Deletes user based on user ID", async()=>{  
+//     const res = await request(api).delete(`/leaderboard/${userId}`)
+//     expect(res.status).toBe(204)
+// });
   
     });

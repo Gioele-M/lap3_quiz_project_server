@@ -14,8 +14,13 @@ describe('author endpoints', () => {
     })
 
     it('login returns user id', async () => {
-        const res = await request(api).post('/auth/login').send({"username": "Adam10","email": "adams@gmail.com", "password": "password"})
-        expect(res.body.username).toBe("Adam10");
+        const res = await request(api).post('/auth/login').send({ "username": "Gio", "password": "pass"})
+        expect(res.body.username).toBe("Gio");
+    })
+
+    it('register returns User created', async () => {
+        const res = await request(api).post('/auth/register').send({"username": "Gioe", "email": "email@email.com", "password": "pass"})
+        expect(res.body.msg).toBe("User created");
     })
 
     it('login with wrong data does not return id', async () => {
