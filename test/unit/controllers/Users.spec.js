@@ -1,4 +1,5 @@
 const usersController = require("../../../controllers/users");
+
 const User = require("../../../models/user");
 
 const mockSend = jest.fn();
@@ -13,6 +14,7 @@ describe("users controller", () => {
 
   describe("index", () => {
     test("it returns users with a 200 status code", async () => {
+
       let testUsers = [{
           "id": 1,
           "name": "Adam10",

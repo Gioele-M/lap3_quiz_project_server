@@ -1,4 +1,3 @@
-
 const db = require('../dbConfig/init')
 
 module.exports = class Leader {
@@ -124,11 +123,13 @@ module.exports = class Leader {
         static get leaderboard(){ 
             return new Promise (async (resolve, reject) => {
                 try {
-                    const result = await db.query(`SELECT name, percentage
+                    const result = await db.query(`SELECT name, correct, total_quest, percentage
                                                         FROM leader
                                                         ORDER BY percentage DESC
                                                         LIMIT 10;`)
-                    const users = result.rows.map(user => ({ username: user.name, percentage: user.percentage }))
+                    
+                    console.log(result.rows)
+                    const users = result.rows.map(user => ({ username: user.name, correct: user.correct, total: user.total_quest, percentage: user.percentage }))
                     resolve(users);
                 } catch (err) {
                     reject("Error retrieving users")
