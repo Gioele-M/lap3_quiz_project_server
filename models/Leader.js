@@ -126,7 +126,7 @@ module.exports = class Leader {
                 try {
                     const result = await db.query(`SELECT name, correct, total_quest, percentage
                                                         FROM leader
-                                                        ORDER BY percentage DESC
+                                                        ORDER BY correct DESC
                                                         LIMIT 10;`)
                     
                     console.log(result.rows)
