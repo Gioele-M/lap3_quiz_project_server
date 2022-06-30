@@ -62,7 +62,8 @@ describe("Leader controller", () => {
       const mockReq = { body: testUser };
       await leadersController.addUserToBoard(mockReq, mockRes);
       expect(mockStatus).toHaveBeenCalledWith(200);
-      expect(mockJson).toHaveBeenCalledWith(new leader(testUser));
+
+      expect(mockJson).toHaveBeenCalledWith({ msg: "User added" });
     });
 
     // test("it returns a status code of 404", async () => {

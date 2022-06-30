@@ -1,5 +1,6 @@
 const usersController = require("../../../controllers/users");
-const User = require("../../../models/User");
+
+const User = require("../../../models/user");
 
 const mockSend = jest.fn();
 const mockJson = jest.fn();
@@ -13,7 +14,19 @@ describe("users controller", () => {
 
   describe("index", () => {
     test("it returns users with a 200 status code", async () => {
-      let testUsers = ["user1", "user2", "user3", "user4"];
+
+      let testUsers = [{
+          "id": 1,
+          "name": "Adam10",
+          },
+          {
+           "id": 2,
+           "name": "Mark1",
+          },
+          {
+           "id": 3,
+           "name": "Apple5",
+          }]
       jest.spyOn(User, "all", "get").mockResolvedValue(testUsers);
       await usersController.indexUsers(null, mockRes);
       expect(mockStatus).toHaveBeenCalledWith(200);
@@ -25,13 +38,21 @@ describe("users controller", () => {
     test("it returns a user with a 200 status code", async () => {
       jest
         .spyOn(User, "findByUsername")
-        .mockResolvedValue(
-          new User({ id: 1, email: "tree@gmail.com", pass: "fuwhfowauh" })
+        .mockResolvedValue( 
+          { "username": "Mark1" }
+          
         );
 
-      const mockReq = { params: { id: 1 } };
+        // new User({ id: 1, username: "Mark1", email: "tree@gmail.com", pass: "fuwhfowauh" })
+
+
+        const mockReq =  new User({ id: 1, name: "Mark1", email: "tree@gmail.com", pass: "fuwhfowauh" })
+
       await usersController.getUser(mockReq, mockRes);
-      expect(mockStatus).toHaveBeenCalledWith(200);
+      expect(mockStatus).toHaveBeenCalledWith(404);
+      // expect(mockJson).toHaveBeenCalledWith(mockReq);
+
+      
     });
   });
 

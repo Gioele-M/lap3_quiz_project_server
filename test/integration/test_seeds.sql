@@ -1,31 +1,16 @@
--- TRUNCATE authors, books RESTART IDENTITY;
+TRUNCATE users, leader RESTART IDENTITY;
 
--- TRUNCATE users RESTART IDENTITY;
+INSERT INTO users (name, email, pass) 
+VALUES
+('Adam10', 'adams@gmail.com', '$2a$10$lEr2zcgSo/ftC8omYuM7bu17jmWWtajOmmQMgvxuObLPqOPxTvkty'),
+('Mark1', 'mark@gmail.com', 'password'),
+('Apple5', 'apple@gmail.com', 'password');
 
 
--- INSERT INTO users (name) 
--- VALUES
--- ('Test Author 1'),
--- ('Test Author 2');
 
--- INSERT INTO books (title, year_of_publication, abstract, author_id) 
--- VALUES
--- (
---     'Test Book 1', 
---     1991, 
---     $str$Test book 1 description$str$,
---     1
--- ),
--- (
---     'Test Book 2', 
---     1992, 
---     $str$Test book 2 description$str$,
---     1
--- ),
--- (
---     'Test Book 3',
---     1993,
---     $str$Test book 3 description$str$,
---     2
+INSERT INTO leader (name, correct, total_quest, time, percentage)
+VALUES
+('Adam10', 5, 10, '2008-01-01 00:00:01', 0.5),
+('Mark1', 7, 10, '2008-01-01 00:00:02', 0.7),
+('Apple5', 10, 10, '2008-01-01 00:00:03', 1);
 
--- );
