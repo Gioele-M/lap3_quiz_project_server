@@ -18,8 +18,9 @@ describe('author endpoints', () => {
     })
 
     it('login returns user id', async () => {
-        const res = await request(api).post('/auth/login').send({ "username": "Gio", "password": "pass"})
-        expect(res.body.username).toBe("Gio");
+        const res = await request(api).post('/auth/login').send({ "username": "Adam10", "password": "pass"})
+
+        expect(res.body.user).toBe("Adam10");
     })
 
     it('register returns User created', async () => {
@@ -28,13 +29,13 @@ describe('author endpoints', () => {
     })
 
     it('login with wrong data does not return id', async () => {
-        const res = await request(api).post('/auth/login').send({"username": "Adam10","email": "adams@gmail.com", "password": "nopass"})
-        expect(res.body.msg).toBe("Incorrect Username or Password");
+        const res = await request(api).post('/auth/login').send({"username": "Adam10", "password": "nopass"})
+        expect(res.status).toBe(401);
     })
 
     it('Unsuccessful register for duplicate username', async () => {
         const res = await request(api).post('/auth/register').send({"username": "Adam10","email": "adams@gmail.com", "password": "nopass"})
-        expect(res.body.msg).toContain("Username taken");
+        expect(JSON.stringify(res.body)).toContain('Error creating user: error: duplicate key value violates unique constraint');
     })
 
 //     it('should return a list of books by a specific author', async () => {

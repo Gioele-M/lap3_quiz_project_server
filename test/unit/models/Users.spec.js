@@ -31,9 +31,9 @@ describe("User", () => {
       let email = "fakeEmail@gmail.com";
       let query = `SELECT * FROM users WHERE email = 'fakeEmail@gmail.com';`;
 
-      jest.spyOn(db, query).mockResolvedValueOnce({
-        rows: [{ name: "ghost123", email, pass: "whatever" }],
-      });
+      // jest.spyOn(db, query).mockResolvedValueOnce({
+      //   rows: [{ name: "ghost123", email, pass: "whatever" }],
+      // });
 
       let userData = {
         name: "test1234",
@@ -45,7 +45,7 @@ describe("User", () => {
         rows: [{ ...userData }],
       });
       const result = await User.create(userData);
-      expect(result).toHaveProperty("name");
+      expect(JSON.stringify(result)).toMatch("username");
     });
   });
 
@@ -80,7 +80,7 @@ describe("User", () => {
   describe("destroy", () => {
     test("it returns a string that says that user was deleted on a successful deletion query", async () => {
       jest.spyOn(db, "query").mockResolvedValueOnce("User was deleted!");
-      const result = await User.prototype.destroy();
+      const result = await User.destroy();
       expect(result).toEqual("User was deleted");
     });
   });

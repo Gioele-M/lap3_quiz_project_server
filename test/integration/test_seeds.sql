@@ -2,7 +2,7 @@ TRUNCATE users, leader RESTART IDENTITY;
 
 INSERT INTO users (name, email, pass) 
 VALUES
-('Adam10', 'adams@gmail.com', 'password'),
+('Adam10', 'adams@gmail.com', '$2a$10$lEr2zcgSo/ftC8omYuM7bu17jmWWtajOmmQMgvxuObLPqOPxTvkty'),
 ('Mark1', 'mark@gmail.com', 'password'),
 ('Apple5', 'apple@gmail.com', 'password');
 
