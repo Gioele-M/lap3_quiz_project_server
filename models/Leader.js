@@ -64,9 +64,9 @@ module.exports = class Leader {
             try {
                 let thisUser = await this.findByUsername(username)
 
-                const newCorrect = thisUser.correct + correct
-                const newTotal = thisUser.total + total
-                let newPercentage = newCorrect/newTotal
+                const newCorrect = parseInt(thisUser.correct) + parseInt(correct)
+                const newTotal = parseInt(thisUser.total) + parseInt(total)
+                let newPercentage = parseInt(newCorrect)/ parseInt(newTotal)
 
                 if(newPercentage == NaN){
                     newPercentage = 0
@@ -87,7 +87,7 @@ module.exports = class Leader {
                 console.log(updateScore.rows[0])
                 resolve(newScore);
             } catch (err) {
-                reject('User not found');
+                reject(err);
             }
         });
     };
