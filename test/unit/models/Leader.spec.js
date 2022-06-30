@@ -35,6 +35,7 @@ describe.only("User", () => {
 
       jest.spyOn(db, "query").mockResolvedValueOnce({ rows: [userData] });
       const result = await Leader.findByUsername("karma");
+
       expect(result).toBeInstanceOf(Object);
     });
   });

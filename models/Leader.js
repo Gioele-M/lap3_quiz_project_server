@@ -1,4 +1,3 @@
-
 const db = require('../dbConfig/init')
 
 module.exports = class Leader {
