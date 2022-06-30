@@ -105,12 +105,11 @@ io.on('connection', socket => {
 
 
     //probably need another input
-    socket.on('finishGame', (message, cb)=>{
-
+    socket.on('finishGame', (playerName, playerScore, questionsAmount, cb)=>{
 
         
-        
-        console.log(message)
+
+        console.log(playerName)
         
         
         
@@ -121,16 +120,33 @@ io.on('connection', socket => {
         // Store the object of users with their results, once length of object = players in the room send answer back with object
 
 
+        // THIS LINE THROWS A LOT OF ERRORS!!!
         let roomSize = io.sockets.adapter.rooms.get(room).size
 
-        console.log('roomsize '+roomSize)
+        console.log('roomsize '+ roomSize)
         
 
 
-        io.sockets.in(room).emit('playerHasCompleted', 'Another player completed');
+        io.sockets.in(room).emit('playerHasCompleted', id, playerName, playerScore, questionsAmount, roomSize);
 
 
     })
+
+
+    socket.on('everyoneIsDone', (data) => {
+
+        console.log(data)
+
+        const [id, room] = Array.from(socket.rooms)
+        console.log(id, room)
+
+        io.sockets.in(room).emit('showLeaderBoard', data)
+
+
+    })
+
+
+    /////////////////////////////////////////// NEED EVERYTHING TO BE IN TRY CATCH BLOCK!!! IF DATA IS NOT SENT PROPERLY FROM FRONTEND EVERYTHING BREAKS!!!!!!
 
 
 
