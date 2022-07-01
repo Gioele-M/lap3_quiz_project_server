@@ -62,6 +62,7 @@ describe("Leader controller", () => {
       const mockReq = { body: testUser };
       await leadersController.addUserToBoard(mockReq, mockRes);
       expect(mockStatus).toHaveBeenCalledWith(200);
+
       expect(mockJson).toHaveBeenCalledWith({ msg: "User added" });
     });
 
